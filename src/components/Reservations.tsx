@@ -3,9 +3,10 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Spinner from 'react-bootstrap/Spinner'
 import Alert from 'react-bootstrap/Alert'
 import { parseISO, format } from 'date-fns'
+import { Reservation } from '../interface'
 
 const Reservations = () => {
-  const [reservations, setReservations] = useState([])
+  const [reservations, setReservations] = useState<Reservation[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isError, setIsError] = useState(false)
 
@@ -43,7 +44,7 @@ const Reservations = () => {
         <ListGroup className='mb-5'>
           {reservations.map((res) => (
             <ListGroup.Item key={res._id}>
-              {res.name} for {res.numberOfPeople} on{' '}
+              {res.name} for {res.numberOfPerson} on{' '}
               {format(parseISO(res.dateTime), 'EEEE, MMM. do - HH:mm')}
             </ListGroup.Item>
           ))}

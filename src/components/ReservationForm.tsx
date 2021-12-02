@@ -1,25 +1,29 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { FormEvent } from 'react'
+import { IReservationForm } from '../interface'
 
 const ReservationForm = () => {
-  const [reservation, setReservation] = useState({
+  const [reservation, setReservation] = useState<IReservationForm>({
     name: '',
     phone: '',
     numberOfPeople: 1,
     smoking: false,
     dateTime: '',
-    specialRequests: '',
+    specialRequest: '',
   })
 
-  const handleInput = (fieldName, value) => {
+  const handleInput = (fieldName: string , value: string | number | boolean) => {
+    
     setReservation({
       ...reservation,
       [fieldName]: value,
-    })
-  }
+    });
+  };
 
-  const handleSubmit = async (e) => {
+  
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     console.log(reservation)
     try {
@@ -42,7 +46,7 @@ const ReservationForm = () => {
           numberOfPeople: 1,
           smoking: false,
           dateTime: '',
-          specialRequests: '',
+          specialRequest: '',
         })
       } else {
         alert('ERROR')
@@ -55,7 +59,7 @@ const ReservationForm = () => {
   return (
     <>
       <h2>Book your table NOW!</h2>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={(e)=> handleSubmit(e)}>
         <Form.Group>
           <Form.Label>Your name</Form.Label>
           <Form.Control
@@ -63,7 +67,7 @@ const ReservationForm = () => {
             placeholder='Input your name'
             value={reservation.name}
             onChange={(e) => {
-              handleInput('name', e.target.value)
+              handleInput('name',e.target.value)
             }}
             required
           />
@@ -75,7 +79,7 @@ const ReservationForm = () => {
             placeholder='Input your cellphone'
             value={reservation.phone}
             onChange={(e) => {
-              handleInput('phone', e.target.value)
+              handleInput('phone',e.target.value)
             }}
             required
           />
@@ -104,7 +108,7 @@ const ReservationForm = () => {
             label='Do you smoke?'
             checked={reservation.smoking}
             onChange={(e) => {
-              handleInput('smoking', e.target.checked)
+              handleInput('smoking',e.target.checked)
             }}
           />
         </Form.Group>
@@ -124,9 +128,9 @@ const ReservationForm = () => {
           <Form.Control
             as='textarea'
             rows={5}
-            value={reservation.specialRequests}
+            value={reservation.specialRequest}
             onChange={(e) => {
-              handleInput('specialRequests', e.target.value)
+              handleInput('specialRequest',e.target.value)
             }}
           />
         </Form.Group>

@@ -2,9 +2,13 @@ import { useState } from 'react'
 import { Carousel, Container, Col, Row } from 'react-bootstrap'
 import items from '../data/menu.json'
 import DishComments from './DishComments'
+import {Dish} from '../interface/index'
 
-const Home = () => {
-  const [selectedDish, setSelectedDish] = useState(undefined)
+interface HomeProps{
+  title:string;
+}
+const Home = ({title}:HomeProps) => {
+  const [selectedDish, setSelectedDish] = useState<Dish|null>(null)
 
   return (
     <Container>
